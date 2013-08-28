@@ -1,0 +1,39 @@
+<%#= render inline: ERB.new(@erb_code).result(binding) %>
+<h1><%= t('Suppliers')%></h1>
+<div class="byop_pagination"><%= will_paginate %></div>
+<table>
+  <tr>
+    <th></th>
+    <th><%=t('Short Name')%></th>
+    <th><%=t('Supply Since')%></th>
+    <th><%=t('Contact Name')%></th>
+    <th><%=t('Cell')%></th>
+    <th><%=t('Phone')%></th>
+    <th><%=t('Active?')%></th>
+    <th><%=t('Main Product')%></th>
+    <th><%=t('Short Comment')%></th>
+    <th><%=t('Last Eval Date')%></th>
+    <th></th>
+ 
+  </tr>
+
+<% @suppliers.each do |supplier| %>
+  <tr>
+  	<td><%= link_to supplier.id.to_s, SUBURI + "/view_handler?index=1&url=#{supplier_path(supplier)}" if has_action_right?('show', params[:controller], supplier) %></td>
+    <td><%= prt(supplier, :short_name) %></td>
+    <td><%= supplier.supply_since.strftime("%Y/%m/%d") unless supplier.supply_since.nil? %></td>
+    <td><%= prt(supplier, :contact_name) %></td>
+    <td><%= prt(supplier, :cell) %></td>
+    <td><%= prt(supplier, :phone) %></td>    
+    <td><%= t(prt(supplier, :active)) %></td>
+    <td><%= prt(supplier, :main_product) %></td> 
+    <td><%= prt(supplier, :short_comment)%></td>
+    <td><%= supplier.last_eval_date.strftime("%Y/%m/%d") unless supplier.last_eval_date.nil? %></td> 
+    <td><%= link_to t('Edit'), SUBURI + "/view_handler?index=1&url=#{edit_supplier_path(supplier)}", :class => BUTTONS_CLS['action'] if has_action_right?('update', params[:controller], supplier) %></td>
+
+  </tr>
+<% end %>
+</table>
+
+  <%= link_to t('Back'), SUBURI + "/view_handler?index=0",  :class => BUTTONS_CLS['action'] %>
+  &nbsp;<%= link_to t('New Supplier'), SUBURI + "/view_handler?index=1&url=#{new_supplier_path}",  :class => BUTTONS_CLS['action'] if has_action_right?('create', params[:controller]) %>

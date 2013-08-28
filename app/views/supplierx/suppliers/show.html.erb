@@ -1,0 +1,56 @@
+<div id="main_body">
+	<%#= render inline: ERB.new(@erb_code).result(binding) %>
+<h4><%= t('Supplier Info') %></h4>
+
+<p>
+  <b><%= t('Name') %></b>
+  <%= @supplier.name %>
+</p>
+<p>
+  <b><%= t('Short Name') %></b>
+  <%= @supplier.short_name %>
+</p>
+  <p>
+    <b><%= t('Contact Name') %></b>
+    <%= @supplier.contact_name %>
+  </p>
+<p>
+  <b><%= t('Contact Info') %></b>
+  <%= @supplier.contact_info %>
+</p>
+<p>
+  <b><%= t('Cell Phone') %></b>
+  <%= @supplier.cell %>
+</p>
+<p>
+  <b><%= t('Phone') %></b>
+  <%= @supplier.phone %>
+</p>
+<p>
+  <b><%= t('Fax') %></b>
+  <%= @supplier.fax %>
+</p>
+<p>
+  <b><%= t('Main Product') %></b>
+  <%= @supplier.main_product %>
+</p>
+<p>
+  <b><%= t('Active?') %></b>
+  <%= @supplier.active ? t('Yes') : t('No') %>
+</p>
+<p>
+  <b><%= t('Web') %></b>
+  <%= @supplier.web %>
+</p>
+<p>
+  <b><%= t('Short Comment') %></b>
+  <%= @supplier.short_comment %>
+</p>
+<p>
+  <b><%= t('Last Updated By') %></b>
+  <%= @supplier.last_updated_by.name %>
+</p>
+
+<%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :id => 'close', :class => BUTTONS_CLS['action'] %>
+
+</div>
