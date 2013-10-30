@@ -9,16 +9,17 @@ FactoryGirl.define do
     phone "My phone"
     fax "MyString"
     cell "My cell"
-    email "My email"
+    email "My@email.com"
     address "My address"
     web "MyString"
     main_product "MyText"
     supply_since "2013-08-04"
-    last_eval_date "2013-08-04"
+    #last_eval_date "2013-08-04"
     active true
     last_updated_by_id 1
     quality_system_id 1
     note 'some note here'
     short_comment "good"
+    
   end
 end

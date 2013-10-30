@@ -1,56 +1,76 @@
 <div id="main_body">
-	<%#= render inline: ERB.new(@erb_code).result(binding) %>
-<h4><%= t('Supplier Info') %></h4>
+<% if false %>
+	<%= render inline: ERB.new(@erb_code).result(binding) %>
+<% end %>
+<% if true %>
+<h1><%=t('Supplier Info') %></h1>
 
 <p>
-  <b><%= t('Name') %></b>
+  <b><%=t('Name')%></b>
   <%= @supplier.name %>
 </p>
 <p>
-  <b><%= t('Short Name') %></b>
+  <b><%=t('Short Name') %></b>
   <%= @supplier.short_name %>
 </p>
-  <p>
-    <b><%= t('Contact Name') %></b>
-    <%= @supplier.contact_name %>
-  </p>
 <p>
-  <b><%= t('Contact Info') %></b>
-  <%= @supplier.contact_info %>
+  <b><%=t('Supply Since') %></b>
+  <%= @supplier.supply_since.strftime("%Y/%m/%d") unless @supplier.supply_since.nil? %>
 </p>
 <p>
-  <b><%= t('Cell Phone') %></b>
+  <b><%=t('Contact') %></b>
+  <%= @supplier.contact_name %>
+</p>
+<p>
+  <b><%=t('Cell Phone') %></b>
   <%= @supplier.cell %>
 </p>
 <p>
-  <b><%= t('Phone') %></b>
+  <b><%=t('Phone') %></b>
   <%= @supplier.phone %>
 </p>
 <p>
-  <b><%= t('Fax') %></b>
+  <b><%=t('Fax') %></b>
   <%= @supplier.fax %>
 </p>
 <p>
-  <b><%= t('Main Product') %></b>
-  <%= @supplier.main_product %>
+  <b><%=t('Address') %></b>
+  <%= @supplier.address %>
 </p>
 <p>
-  <b><%= t('Active?') %></b>
-  <%= @supplier.active ? t('Yes') : t('No') %>
+  <b><%=t('Email') %></b>
+  <%= @supplier.email %>
 </p>
 <p>
-  <b><%= t('Web') %></b>
+  <b><%=t('Web') %></b>
   <%= @supplier.web %>
 </p>
 <p>
-  <b><%= t('Short Comment') %></b>
+  <b><%=t('Main Product') %></b>
+  <%= @supplier.main_product %>
+</p>
+<p>
+  <b><%=t('Quality System') %></b>
+  <%= @supplier.quality_system %>
+</p>
+
+<p>
+  <b><%=t('Short Comment') %></b>
   <%= @supplier.short_comment %>
+</p>
+<p>
+  <b><%= t('Active') %></b>
+  <%= @supplier.active ? t('Yes') : t('No') %>
 </p>
 <p>
   <b><%= t('Last Updated By') %></b>
   <%= @supplier.last_updated_by.name %>
 </p>
+<p>
+  <b><%= t('Note') %></b>
+  <%= @supplier.note %>
+</p>
 
-<%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :id => 'close', :class => BUTTONS_CLS['action'] %>
-
+  <%= link_to t('Back'), SUBURI + "/view_handler?index=0", :id => 'close', :class => BUTTONS_CLS['action'] %>
+<% end %>
 </div>

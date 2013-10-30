@@ -8,6 +8,11 @@ module Supplierx
       c.should be_valid
     end
     
+    it "should take nil email" do
+      c = FactoryGirl.build(:supplierx_supplier, :email => nil)
+      c.should be_valid
+    end
+    
     it "should reject nil name" do
       c = FactoryGirl.build(:supplierx_supplier, :name => nil)
       c.should_not be_valid

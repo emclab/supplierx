@@ -15,4 +15,4 @@
 //= require_tree .
 //= require authentify/application.js
 //= require commonx/application.js
-//= require bootstrap
+//= require supplierx/application.js

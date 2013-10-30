@@ -1,0 +1,48 @@
+<% if false %>
+<%= render inline: ERB.new(@erb_code).result(binding) %>
+<% end %>
+<% if true %>
+<div id="main_body">
+<h1><%=t('Suppliers')%></h1>
+<div class="byop_pagination"><%= will_paginate models %></div>
+<table>
+  <tr>
+    <th></th>
+    <th><%=t('Short Name')%></th>
+    <th><%=t('Supply Since')%></th>
+    <th><%=t('Contact')%></th>
+    <th><%=t('Phone')%></th> 
+    <th><%=t('Cell Phone')%></th>     
+    <th><%=t('Active')%></th>  
+    <th><%=t('Email')%></th>
+    <th><%=t('Address')%></th>
+    <th><%=t('Quality System')%></th>
+    <th><%=t('Last Updated By')%></th>
+    <th></th>
+ 
+  </tr>
+
+<% models.each do |r| %>
+  <tr>
+  	
+  	<td><%= link_to r.id.to_s, SUBURI + "/view_handler?index=1&url=#{supplier_path(r)}"  %></td> 	
+    <td><%= r.short_name %></td>
+    <td><%= r.supply_since.strftime("%Y/%m/%d") unless r.supply_since.nil? %></td>
+    <td><%= r.contact_name %></td>
+    <td><%= r.phone %></td>
+    <td><%= r.cell %></td>
+    <td><%= r.active %></td>
+    <td><%= r.email %></td>
+    <td><%= r.address %></td>
+    <td><%= r.quality_system.name if r.quality_system_id.present? %></td> 
+    <td><%= r.last_updated_by.name  %></td> 
+    <td><%= link_to 'Edit', SUBURI + "/view_handler?index=1&url=#{edit_supplier_path(r)}", :class => BUTTONS_CLS['action'] if has_action_right?('update', params[:controller], r) %></td>
+
+  </tr>
+<% end %>
+</table>
+
+  <%= link_to t('Back'), SUBURI + "/view_handler?index=0", :class => BUTTONS_CLS['action'] %>
+  &nbsp;<%= link_to t('New Supplier'), SUBURI + "/view_handler?index=1&url=#{new_supplier_path}", :class => BUTTONS_CLS['action'] if has_action_right?('create', params[:controller]) %>
+</div>
+<% end %>

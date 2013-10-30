@@ -1,3 +1,3 @@
 module Supplierx
-  VERSION = "0.0.1"
+  VERSION = "3.2.12.01"
 end

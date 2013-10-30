@@ -1,19 +1,10 @@
-if Rails.env.production?
-  SUBURI = "/customerx"
-else
+#if Rails.env.production?
   SUBURI = ''
-end
-#set session timeout minutes
-SESSION_TIMEOUT_MINUTES = 90
-SESSION_WIPEOUT_HOURS = 12
+  #set session timeout minutes
+  SESSION_TIMEOUT_MINUTES = 90
+  SESSION_WIPEOUT_HOURS = 12
+ 
+  BUTTONS_CLS = {'default' => 'btn',
+                 'action'       => 'btn btn-primary' }
 
-# twitter buttons class
-BUTTONS_CLS = {'default' => 'btn btn-primary',
-               'action'  => 'btn btn-primary',
-               'info'    => 'btn btn-primary',
-               'success' => 'btn btn-primary',
-               'warning' => 'btn btn-primary',
-               'danger'  => 'btn btn-primary',
-               'inverse' => 'btn btn-primary',
-               'link'    => 'btn btn-primary'
-              }
+

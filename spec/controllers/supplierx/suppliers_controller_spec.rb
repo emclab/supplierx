@@ -15,12 +15,10 @@ module Supplierx
       type = FactoryGirl.create(:group_type, :name => 'employee')
       ug = FactoryGirl.create(:sys_user_group, :user_group_name => 'ceo', :group_type_id => type.id, :zone_id => z.id)
       @role = FactoryGirl.create(:role_definition)
-      #user_access = FactoryGirl.create(:user_access, :action => 'index', :resource => 'projectx_misc_definitions', :role_definition_id => role.id, :rank => 1,
-      #:sql_code => "Projectx::MiscDefinition.where(:active => true).order('ranking_order')")
       ur = FactoryGirl.create(:user_role, :role_definition_id => @role.id)
       ul = FactoryGirl.build(:user_level, :sys_user_group_id => ug.id)
       @u = FactoryGirl.create(:user, :user_levels => [ul], :user_roles => [ur])
-      
+      @qs = FactoryGirl.create(:commonx_misc_definition, :for_which => 'quality_system')
     end
     
     render_views
@@ -40,7 +38,7 @@ module Supplierx
     describe "GET 'new'" do
       it "should display the new page" do
         user_access = FactoryGirl.create(:user_access, :action => 'create', :resource => 'supplierx_suppliers', :role_definition_id => @role.id, :rank => 1,
-        :sql_code => "Supplierx::Supplier.where(:active => true).order('id')")
+        :sql_code => "")
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         get 'new', {:use_route => :supplierx}
@@ -56,7 +54,7 @@ module Supplierx
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.attributes_for(:supplierx_supplier)
         get 'create', {:use_route => :supplierx, :supplier => sup}
-        response.should redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Supplier Successfully Saved!")
+        response.should redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Saved!")
       end
       
       it "should render new with data error" do
@@ -77,7 +75,7 @@ module Supplierx
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.create(:supplierx_supplier)
-        get 'edit', {:use_route => :suppliers, :id => sup.id}
+        get 'edit', {:use_route => :supplierx, :id => sup.id}
         response.should be_success
       end
             
@@ -91,8 +89,8 @@ module Supplierx
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.create(:supplierx_supplier)
-        get 'update', {:use_route => :suppliers, :id => sup.id, :supplier => {:name => 'a new name'}}
-        response.should redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Supplier Successfully Updated!")
+        get 'update', {:use_route => :supplierx, :id => sup.id, :supplier => {:name => 'a new name'}}
+        response.should redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Updated!")
       end
       
       it "should render edit with data error" do
@@ -101,7 +99,7 @@ module Supplierx
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.create(:supplierx_supplier)
-        get 'update', {:use_route => :suppliers, :id => sup.id, :supplier => {:name => ''}}
+        get 'update', {:use_route => :supplierx, :id => sup.id, :supplier => {:name => ''}}
         response.should render_template('edit')
       end
     end
@@ -112,7 +110,7 @@ module Supplierx
         :sql_code => "record.last_updated_by_id == session[:user_id]")
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
-        sup = FactoryGirl.create(:supplierx_supplier, :last_updated_by_id => session[:user_id])
+        sup = FactoryGirl.create(:supplierx_supplier, :last_updated_by_id => session[:user_id], :quality_system_id => @qs.id)
         get 'show', {:use_route => :supplierx, :id => sup.id}
         response.should be_success
       end

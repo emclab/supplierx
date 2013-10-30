@@ -20,7 +20,7 @@ module Supplierx
       @supplier = Supplierx::Supplier.new(params[:supplier], :as => :role_new)
       @supplier.last_updated_by_id = session[:user_id]
       if @supplier.save
-        redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Supplier Successfully Saved!")
+        redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Saved!")
       else
         flash[:notice] = t('Data Error. Supplier Not Saved!')
         render 'new'
@@ -36,7 +36,7 @@ module Supplierx
       @supplier = Supplierx::Supplier.find_by_id(params[:id])
       @supplier.last_updated_by_id = session[:user_id]
       if @supplier.update_attributes(params[:supplier], :as => :role_update)
-        redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Supplier Successfully Updated!")
+        redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Updated!")
       else
         flash[:notice] = t('Data Error. Supplier Not Updated!')
         render 'edit'
@@ -48,5 +48,8 @@ module Supplierx
       @supplier = Supplierx::Supplier.find_by_id(params[:id])
       @erb_code = find_config_const('supplier_show_view', 'supplierx')
     end
+    
+    protected
+    
   end
 end

@@ -4,7 +4,7 @@ FactoryGirl.define do
     name                  "Test User"
     login                 'testuser'
     email                 "test@test.com"
-    password              "password1"
+    password              "password"
     password_confirmation {password}
     status                "active"
     last_updated_by_id    1
