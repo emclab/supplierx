@@ -1,8 +1,9 @@
-<div id="main_body">
 <% if false %>
-	<%= render inline: ERB.new(@erb_code).result(binding) %>
-<% end %>
-<% if true %>
+  <%= render inline: ERB.new(@erb_code).result(binding) %>
+  
+<% else %>
+<div id="main_body">
+
 <h1><%=t('Supplier Info') %></h1>
 
 <p>
@@ -72,5 +73,7 @@
 </p>
 
   <%= link_to t('Back'), SUBURI + "/view_handler?index=0", :id => 'close', :class => BUTTONS_CLS['action'] %>
-<% end %>
+
 </div>
+
+<% end %>

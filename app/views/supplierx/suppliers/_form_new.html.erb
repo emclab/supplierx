@@ -1,3 +1,7 @@
+<% if false %>
+  <%= render inline: ERB.new(@erb_code).result(binding) %>
+  
+<% else %>
 <%= simple_form_for @supplier do |f| %>    
  
   <%= f.input :name, :label => t('Supplier Name:') %>  
@@ -16,7 +20,10 @@
                                  :label_method => :name, :value_method => :id, :include_blank => true %>  
   <%= f.input :note, :label => t('Note:'), :input_html => { :rows => 4} %>        
   
+  <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :class => BUTTONS_CLS['action'] %>
   <%= f.button :submit, t('Save') , :class => BUTTONS_CLS['action'] %>  
 <% end %>  
+
+<% end %>
 
 
