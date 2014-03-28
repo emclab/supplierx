@@ -15,6 +15,7 @@ module Supplierx
     email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
       
     validates_presence_of :name, :short_name, :contact_name, :address, :phone
+    validates :name, :short_name, :presence => true, :uniqueness => {:case_sensitive => false, :message => I18n.t('Must be unique!')}
     validates :email, :format     => { :with => email_regex, :message => '电邮格式错误！' },
                       :uniqueness => { :case_sensitive => false, :message => '电邮已占用！' },
                       :if => 'email.present?'
