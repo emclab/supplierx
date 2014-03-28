@@ -7,12 +7,12 @@
   <%= f.input :name, :label => t('Supplier Name:') %>  
   <%= f.input :short_name, :label => t('Short Name:'), :placeholder => '4-8字' %>
   <%= f.input :contact_name, :label => t('Contact Name:') %> 
-  <%= f.input :contact_info, :label => t('Contact Info:'), :input_html => {:rows => 4} %> 
+  <%= f.input :contact_info, :label => t('Contact Info:'), :input_html => {:rows => 2} %> 
   <%= f.input :supply_since, :label => t('Supply Since:'), :as => :string %>
   <%= f.input :cell, :label => t('Cell Phone:') %>   
   <%= f.input :phone, :label => t('Phone:') %> 
   <%= f.input :fax, :label => t('Fax:') %> 
-  <%= f.input :address, :label => t('Address:') %>
+  <%= f.input :address, :label => t('Address:'), :input_html => { :rows => 2} %>
   <%= f.input :web, :label => t('Web:') %>
   <%= f.input :main_product, :label => t('Main Product：'), :input_html => { :rows => 4} %>   
   <%= f.input :short_comment, :label => t('Short Comment:') %>   
