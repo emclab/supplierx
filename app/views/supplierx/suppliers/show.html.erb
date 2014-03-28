@@ -52,7 +52,7 @@
 </p>
 <p>
   <b><%=t('Quality System') %></b>
-  <%= @supplier.quality_system %>
+  <%= @supplier.quality_system if @supplier.quality_system_id.present? %>
 </p>
 
 <p>
