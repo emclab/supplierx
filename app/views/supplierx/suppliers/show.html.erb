@@ -1,8 +1,9 @@
+<% if @view_in_config && @erb_code %>
+  <%= render inline: ERB.new(@erb_code).result(binding) %>
+  
+<% else %>
 <div id="main_body">
-<% if false %>
-	<%= render inline: ERB.new(@erb_code).result(binding) %>
-<% end %>
-<% if true %>
+
 <h1><%=t('Supplier Info') %></h1>
 
 <p>
@@ -51,7 +52,7 @@
 </p>
 <p>
   <b><%=t('Quality System') %></b>
-  <%= @supplier.quality_system %>
+  <%= @supplier.quality_system if @supplier.quality_system_id.present? %>
 </p>
 
 <p>
@@ -70,7 +71,13 @@
   <b><%= t('Note') %></b>
   <%= @supplier.note %>
 </p>
-
-  <%= link_to t('Back'), SUBURI + "/view_handler?index=0", :id => 'close', :class => BUTTONS_CLS['action'] %>
-<% end %>
+   <table class="table table-striped">
+	  <tr>
+	    <th>
+          <%= link_to t('Back'), SUBURI + "/view_handler?index=0", :id => 'close', :class => BUTTONS_CLS['action'] %>
+   		</th>
+	  </tr>
+	</table> 
 </div>
+
+<% end %>

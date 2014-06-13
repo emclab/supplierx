@@ -1,11 +1,11 @@
-<% if false %>
+<% if @view_in_config && @erb_code %>
 <%= render inline: ERB.new(@erb_code).result(binding) %>
-<% end %>
-<% if true %>
+<% else %>
+
 <div id="main_body">
 <h1><%=t('Suppliers')%></h1>
 <div class="byop_pagination"><%= will_paginate models %></div>
-<table>
+<table class="table table-striped">
   <tr>
     <th></th>
     <th><%=t('Short Name')%></th>
@@ -40,9 +40,14 @@
 
   </tr>
 <% end %>
-</table>
-
-  <%= link_to t('Back'), SUBURI + "/view_handler?index=0", :class => BUTTONS_CLS['action'] %>
-  &nbsp;<%= link_to t('New Supplier'), SUBURI + "/view_handler?index=1&url=#{new_supplier_path}", :class => BUTTONS_CLS['action'] if has_action_right?('create', params[:controller]) %>
+   <table class="table table-striped">
+	  <tr>
+	    <th>
+  		  <%= link_to t('Back'), SUBURI + "/view_handler?index=0", :class => BUTTONS_CLS['action'] %>
+  		 &nbsp;<%= link_to t('New Supplier'), SUBURI + "/view_handler?index=1&url=#{new_supplier_path}", :class => BUTTONS_CLS['action'] if has_action_right?('create', params[:controller]) %>
+        </th>
+	  </tr>
+	</table> 
 </div>
+
 <% end %>

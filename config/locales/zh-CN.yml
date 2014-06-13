@@ -19,7 +19,7 @@ zh-CN:
   'Contact Info:'  : '联系信息：'
   Contact Info  : '联系信息'
   'Contact Name:'  : '联系人：'
-  Contact Name  : '联系人'
+  Contact  : '联系人'
   'Supply Since:' : '始供日期：'
   Supply Since : '始供日期'
   'Cell Phone:' : '手机：'
@@ -46,4 +46,5 @@ zh-CN:
   No  : '否'
   yes : '是'
   no  : '否'
+  Must be unique! : '重名！'
 
