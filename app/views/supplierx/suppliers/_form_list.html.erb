@@ -31,7 +31,7 @@
     <td><%= r.contact_name %></td>
     <td><%= r.phone %></td>
     <td><%= r.cell %></td>
-    <td><%= r.active %></td>
+    <td><%= r.active ? t('Yes') : t('No')%></td>
     <td><%= r.email %></td>
     <td><%= r.address %></td>
     <td><%= r.quality_system.name if r.quality_system_id.present? %></td> 
@@ -44,7 +44,8 @@
 	  <tr>
 	    <th>
   		  <%= link_to t('Back'), SUBURI + "/view_handler?index=0", :class => BUTTONS_CLS['action'] %>
-  		 &nbsp;<%= link_to t('New Supplier'), SUBURI + "/view_handler?index=1&url=#{new_supplier_path}", :class => BUTTONS_CLS['action'] if has_action_right?('create', params[:controller]) %>
+  		  &nbsp;&nbsp;&nbsp;&nbsp;
+  		  <%= link_to t('New Supplier'), SUBURI + "/view_handler?index=1&url=#{new_supplier_path}", :class => BUTTONS_CLS['action'] if has_action_right?('create', params[:controller]) %>
         </th>
 	  </tr>
 	</table> 

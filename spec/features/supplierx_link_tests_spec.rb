@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "LinkTests" do
+RSpec.describe "LinkTests", type: :request do
   describe "GET /supplierx_link_tests" do
     mini_btn = 'btn btn-mini '
     ActionView::CompiledTemplates::BUTTONS_CLS =
@@ -41,7 +41,7 @@ describe "LinkTests" do
       user_access = FactoryGirl.create(:user_access, :action => 'show', :resource =>'supplierx_suppliers', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "")
       
-      visit '/'
+      visit authentify.new_session_path
       #save_and_open_page
       fill_in "login", :with => @u.login
       fill_in "password", :with => 'password'
@@ -49,22 +49,22 @@ describe "LinkTests" do
     end
     it "works! (now write some real specs)" do
       sup = FactoryGirl.create(:supplierx_supplier, :quality_system_id => @qs.id)
-      visit suppliers_path
+      visit supplierx.suppliers_path
       save_and_open_page
-      page.should have_content('Suppliers')
+      expect(page).to have_content('Suppliers')
       
       click_link 'Edit'
-      page.should have_content('Update Supplier')
+      expect(page).to have_content('Update Supplier')
       
-      visit suppliers_path
+      visit supplierx.suppliers_path
       click_link sup.id.to_s     
-      page.should have_content('Supplier Info')
+      expect(page).to have_content('Supplier Info')
       
-      visit suppliers_path
+      visit supplierx.suppliers_path
       #save_and_open_page
       click_link "New Supplier"
       #save_and_open_page
-      page.should have_content('New Supplier')
+      expect(page).to have_content('New Supplier')
     end
   end
 end

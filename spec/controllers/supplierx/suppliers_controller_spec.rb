@@ -1,12 +1,12 @@
 # encoding: utf-8
-require 'spec_helper'
+require 'rails_helper'
 
 module Supplierx
-  describe SuppliersController do
-    
+  RSpec.describe SuppliersController, tyep: :controller do
+    routes {Supplierx::Engine.routes}
     before(:each) do
-      controller.should_receive(:require_signin)
-      controller.should_receive(:require_employee)
+      expect(controller).to receive(:require_signin)
+      expect(controller).to receive(:require_employee)
       @pagination_config = FactoryGirl.create(:engine_config, :engine_name => nil, :engine_version => nil, :argument_name => 'pagination', :argument_value => 30)
     end
     
@@ -18,7 +18,7 @@ module Supplierx
       ur = FactoryGirl.create(:user_role, :role_definition_id => @role.id)
       ul = FactoryGirl.build(:user_level, :sys_user_group_id => ug.id)
       @u = FactoryGirl.create(:user, :user_levels => [ul], :user_roles => [ur])
-      @qs = FactoryGirl.create(:commonx_misc_definition, :for_which => 'quality_system')
+      @qs = FactoryGirl.create(:commonx_misc_definition, :for_which => 'quality_system', :active => true)
     end
     
     render_views
@@ -29,9 +29,9 @@ module Supplierx
         :sql_code => "Supplierx::Supplier.where(:active => true).order('id')")
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
-        sup = FactoryGirl.create(:supplierx_supplier)
-        get 'index', {:use_route => :supplierx}
-        assigns(:suppliers).should =~ [sup]
+        sup = FactoryGirl.create(:supplierx_supplier, :quality_system_id => nil)
+        get 'index'
+        expect(assigns(:suppliers)).to match_array([sup])
       end
     end
   
@@ -41,8 +41,8 @@ module Supplierx
         :sql_code => "")
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
-        get 'new', {:use_route => :supplierx}
-        response.should be_success
+        get 'new'
+        expect(response).to be_success
       end
     end
   
@@ -53,8 +53,8 @@ module Supplierx
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.attributes_for(:supplierx_supplier)
-        get 'create', {:use_route => :supplierx, :supplier => sup}
-        response.should redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Saved!")
+        get 'create', {:supplier => sup}
+        expect(response).to redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Saved!")
       end
       
       it "should render new with data error" do
@@ -63,8 +63,8 @@ module Supplierx
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.attributes_for(:supplierx_supplier, :name => nil)
-        get 'create', {:use_route => :supplierx, :supplier => sup}
-        response.should render_template('new')
+        get 'create', {:supplier => sup}
+        expect(response).to render_template('new')
       end
     end
   
@@ -75,8 +75,8 @@ module Supplierx
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.create(:supplierx_supplier)
-        get 'edit', {:use_route => :supplierx, :id => sup.id}
-        response.should be_success
+        get 'edit', {:id => sup.id}
+        expect(response).to be_success
       end
             
     end
@@ -89,8 +89,8 @@ module Supplierx
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.create(:supplierx_supplier)
-        get 'update', {:use_route => :supplierx, :id => sup.id, :supplier => {:name => 'a new name'}}
-        response.should redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Updated!")
+        get 'update', {:id => sup.id, :supplier => {:name => 'a new name'}}
+        expect(response).to redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Updated!")
       end
       
       it "should render edit with data error" do
@@ -99,8 +99,8 @@ module Supplierx
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.create(:supplierx_supplier)
-        get 'update', {:use_route => :supplierx, :id => sup.id, :supplier => {:name => ''}}
-        response.should render_template('edit')
+        get 'update', {:id => sup.id, :supplier => {:name => ''}}
+        expect(response).to render_template('edit')
       end
     end
   
@@ -111,8 +111,8 @@ module Supplierx
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.create(:supplierx_supplier, :last_updated_by_id => session[:user_id], :quality_system_id => @qs.id)
-        get 'show', {:use_route => :supplierx, :id => sup.id}
-        response.should be_success
+        get 'show', {:id => sup.id}
+        expect(response).to be_success
       end
     end
   
