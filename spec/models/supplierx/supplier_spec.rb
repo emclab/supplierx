@@ -35,9 +35,9 @@ module Supplierx
       expect(p1).not_to be_valid
     end
     
-    it "should reject nil contact name" do
+    it "should take nil contact name" do
       c = FactoryGirl.build(:supplierx_supplier, :contact_name => nil)
-      expect(c).not_to be_valid
+      expect(c).to be_valid
     end
     
     it "should take nil quality_system_id" do

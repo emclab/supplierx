@@ -18,7 +18,7 @@ module Supplierx
     
     email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
       
-    validates :name, :short_name, :contact_name, :phone, :presence => true
+    validates :name, :short_name, :phone, :presence => true
     validates :name, :short_name, :presence => true, :uniqueness => {:case_sensitive => false, :message => I18n.t('Must be unique!')}
     validates :email, :format     => { :with => email_regex, :message => I18n.t('Wrong email format!') },
                       :uniqueness => { :case_sensitive => false, :message => I18n.t('Duplicate email!') },
