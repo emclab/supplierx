@@ -44,7 +44,7 @@ RSpec.describe "LinkTests", type: :request do
       visit authentify.new_session_path
       #save_and_open_page
       fill_in "login", :with => @u.login
-      fill_in "password", :with => 'password'
+      fill_in "password", :with => @u.password
       click_button 'Login' 
     end
     it "works! (now write some real specs)" do
@@ -53,18 +53,34 @@ RSpec.describe "LinkTests", type: :request do
       save_and_open_page
       expect(page).to have_content('Suppliers')
       
-      click_link 'Edit'
+      click_link 'Edit'  #not working
+      #visit supplierx.edit_supplier_path(sup)
       expect(page).to have_content('Update Supplier')
+      fill_in 'supplier_short_name', with: 'a new name'
+      click_button 'Save'
+      visit supplierx.suppliers_path
+      save_and_open_page
+      expect(page).to have_content('a new name')
       
       visit supplierx.suppliers_path
-      click_link sup.id.to_s     
+      visit supplierx.supplier_path(sup)     
       expect(page).to have_content('Supplier Info')
       
       visit supplierx.suppliers_path
       #save_and_open_page
-      click_link "New Supplier"
-      #save_and_open_page
+      #click_link "New Supplier"
+      visit supplierx.new_supplier_path
       expect(page).to have_content('New Supplier')
+      fill_in 'supplier_name', with: 'a wired name'
+      fill_in 'supplier_short_name', with: 'a very wired name'
+      fill_in 'supplier_phone', with: '1234567'
+      fill_in 'supplier_contact_name', with: 'a contact name'
+      click_button 'Save'
+      #save_and_open_page
+      visit supplierx.suppliers_path
+      save_and_open_page
+      expect(page).to have_content('a very wired name')
+      
     end
   end
 end

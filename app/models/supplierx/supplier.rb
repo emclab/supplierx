@@ -1,10 +1,10 @@
 module Supplierx
   class Supplier < ActiveRecord::Base
-    attr_accessor :active_noupdate, :quality_system
-    attr_accessible :active, :address, :cell, :contact_name, :contact_info, :email, :fax, :last_eval_date, :last_updated_by_id, :main_product, :name, :phone, :quality_system, 
+    attr_accessor :active_noupdate, :quality_system_name
+    attr_accessible :active, :address, :cell, :contact_name, :contact_info, :email, :fax, :last_eval_date, :last_updated_by_id, :main_product, :name, :phone, :quality_system_name, 
                      :short_name, :supply_since, :web, :note, :short_comment, :quality_system_id,
                      :as => :role_new
-    attr_accessible :active, :address, :cell, :contact_name, :contact_info, :email, :fax, :last_eval_date, :last_updated_by_id, :main_product, :name, :phone, :quality_system, 
+    attr_accessible :active, :address, :cell, :contact_name, :contact_info, :email, :fax, :last_eval_date, :last_updated_by_id, :main_product, :name, :phone, :quality_system_name, 
                      :short_name, :supply_since, :web, :note, :short_comment, :quality_system_id, 
                      :active_noupdate,
                      :as => :role_update

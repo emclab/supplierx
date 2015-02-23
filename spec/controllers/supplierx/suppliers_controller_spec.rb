@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 module Supplierx
-  RSpec.describe SuppliersController, tyep: :controller do
+  RSpec.describe SuppliersController, type: :controller do
     routes {Supplierx::Engine.routes}
     before(:each) do
       expect(controller).to receive(:require_signin)
@@ -29,7 +29,7 @@ module Supplierx
         :sql_code => "Supplierx::Supplier.where(:active => true).order('id')")
         session[:user_id] = @u.id
         session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
-        sup = FactoryGirl.create(:supplierx_supplier, :quality_system_id => nil)
+        sup = FactoryGirl.create(:supplierx_supplier, :quality_system_id => @qs.id )
         get 'index'
         expect(assigns(:suppliers)).to match_array([sup])
       end
