@@ -1,3 +1,4 @@
+# encoding: utf-8
 module Supplierx
   class Supplier < ActiveRecord::Base
     attr_accessor :active_noupdate, :quality_system_name
