@@ -35,14 +35,14 @@ module Supplierx
       p1.should_not be_valid
     end
     
-    it "should reject nil contact name" do
+    it "should take nil contact name" do
       c = FactoryGirl.build(:supplierx_supplier, :contact_name => nil)
-      c.should_not be_valid
+      c.should be_valid
     end
     
-    it "should reject nil address" do
+    it "should take nil address" do
       c = FactoryGirl.build(:supplierx_supplier, :address => nil)
-      c.should_not be_valid
+      c.should be_valid
     end
     
     it "should reject nil phone" do
