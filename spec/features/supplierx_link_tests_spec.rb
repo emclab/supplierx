@@ -41,7 +41,8 @@ RSpec.describe "LinkTests", type: :request do
       user_access = FactoryGirl.create(:user_access, :action => 'show', :resource =>'supplierx_suppliers', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "")
       
-      visit authentify.new_session_path
+      #visit authentify.new_session_path
+      visit '/'
       #save_and_open_page
       fill_in "login", :with => @u.login
       fill_in "password", :with => @u.password
@@ -63,13 +64,12 @@ RSpec.describe "LinkTests", type: :request do
       expect(page).to have_content('a new name')
       
       visit supplierx.suppliers_path
-      visit supplierx.supplier_path(sup)     
+      click_link sup.id    
       expect(page).to have_content('Supplier Info')
       
       visit supplierx.suppliers_path
       #save_and_open_page
-      #click_link "New Supplier"
-      visit supplierx.new_supplier_path
+      click_link "New Supplier"
       expect(page).to have_content('New Supplier')
       fill_in 'supplier_name', with: 'a wired name'
       fill_in 'supplier_short_name', with: 'a very wired name'
