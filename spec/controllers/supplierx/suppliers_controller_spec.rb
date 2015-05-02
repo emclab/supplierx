@@ -19,6 +19,8 @@ module Supplierx
       ul = FactoryGirl.build(:user_level, :sys_user_group_id => ug.id)
       @u = FactoryGirl.create(:user, :user_levels => [ul], :user_roles => [ur])
       @qs = FactoryGirl.create(:commonx_misc_definition, :for_which => 'quality_system', :active => true)
+      
+      session[:user_role_ids] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id).user_role_ids
     end
     
     render_views
@@ -28,7 +30,6 @@ module Supplierx
         user_access = FactoryGirl.create(:user_access, :action => 'index', :resource => 'supplierx_suppliers', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "Supplierx::Supplier.where(:active => true).order('id')")
         session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.create(:supplierx_supplier, :quality_system_id => @qs.id )
         get 'index'
         expect(assigns(:suppliers)).to match_array([sup])
@@ -40,7 +41,6 @@ module Supplierx
         user_access = FactoryGirl.create(:user_access, :action => 'create', :resource => 'supplierx_suppliers', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "")
         session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         get 'new'
         expect(response).to be_success
       end
@@ -51,7 +51,6 @@ module Supplierx
         user_access = FactoryGirl.create(:user_access, :action => 'create', :resource => 'supplierx_suppliers', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "")
         session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.attributes_for(:supplierx_supplier)
         get 'create', {:supplier => sup}
         expect(response).to redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Saved!")
@@ -61,7 +60,6 @@ module Supplierx
         user_access = FactoryGirl.create(:user_access, :action => 'create', :resource => 'supplierx_suppliers', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "")
         session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.attributes_for(:supplierx_supplier, :name => nil)
         get 'create', {:supplier => sup}
         expect(response).to render_template('new')
@@ -73,7 +71,6 @@ module Supplierx
         user_access = FactoryGirl.create(:user_access, :action => 'update', :resource => 'supplierx_suppliers', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "")
         session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.create(:supplierx_supplier)
         get 'edit', {:id => sup.id}
         expect(response).to be_success
@@ -87,7 +84,6 @@ module Supplierx
         user_access = FactoryGirl.create(:user_access, :action => 'update', :resource => 'supplierx_suppliers', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "")
         session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.create(:supplierx_supplier)
         get 'update', {:id => sup.id, :supplier => {:name => 'a new name'}}
         expect(response).to redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Updated!")
@@ -97,7 +93,6 @@ module Supplierx
         user_access = FactoryGirl.create(:user_access, :action => 'update', :resource => 'supplierx_suppliers', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "")
         session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.create(:supplierx_supplier)
         get 'update', {:id => sup.id, :supplier => {:name => ''}}
         expect(response).to render_template('edit')
@@ -109,7 +104,6 @@ module Supplierx
         user_access = FactoryGirl.create(:user_access, :action => 'show', :resource => 'supplierx_suppliers', :role_definition_id => @role.id, :rank => 1,
         :sql_code => "record.last_updated_by_id == session[:user_id]")
         session[:user_id] = @u.id
-        session[:user_privilege] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id)
         sup = FactoryGirl.create(:supplierx_supplier, :last_updated_by_id => session[:user_id], :quality_system_id => @qs.id)
         get 'show', {:id => sup.id}
         expect(response).to be_success

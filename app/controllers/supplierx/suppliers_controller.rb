@@ -17,7 +17,7 @@ module Supplierx
     end
   
     def create
-      @supplier = Supplierx::Supplier.new(params[:supplier], :as => :role_new)
+      @supplier = Supplierx::Supplier.new(new_params)
       @supplier.last_updated_by_id = session[:user_id]
       if @supplier.save
         redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Saved!")
@@ -35,7 +35,7 @@ module Supplierx
     def update
       @supplier = Supplierx::Supplier.find_by_id(params[:id])
       @supplier.last_updated_by_id = session[:user_id]
-      if @supplier.update_attributes(params[:supplier], :as => :role_update)
+      if @supplier.update_attributes(edit_params)
         redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Updated!")
       else
         flash[:notice] = t('Data Error. Supplier Not Updated!')
@@ -56,5 +56,16 @@ module Supplierx
     
     protected
     
+    private
+    
+    def new_params
+      params.require(:supplier).permit(:active, :address, :cell, :contact_name, :contact_info, :email, :fax, :last_eval_date, :main_product, :name, :phone, :quality_system_name, 
+                     :short_name, :supply_since, :web, :note, :short_comment, :quality_system_id)
+    end
+    
+    def edit_params
+      params.require(:supplier).permit(:active, :address, :cell, :contact_name, :contact_info, :email, :fax, :last_eval_date, :main_product, :name, :phone, :quality_system_name, 
+                     :short_name, :supply_since, :web, :note, :short_comment, :quality_system_id)
+    end
   end
 end

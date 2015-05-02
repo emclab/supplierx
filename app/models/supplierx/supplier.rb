@@ -1,6 +1,7 @@
 module Supplierx
   class Supplier < ActiveRecord::Base
     attr_accessor :active_noupdate, :quality_system_name
+=begin
     attr_accessible :active, :address, :cell, :contact_name, :contact_info, :email, :fax, :last_eval_date, :last_updated_by_id, :main_product, :name, :phone, :quality_system_name, 
                      :short_name, :supply_since, :web, :note, :short_comment, :quality_system_id,
                      :as => :role_new
@@ -12,7 +13,7 @@ module Supplierx
     attr_accessor :start_date_s, :end_date_s, :name_keyword_s, :contact_name_s, :quality_system_id_s, :active_s
     attr_accessible :start_date_s, :end_date_s, :name_keyword_s, :contact_name_s, :quality_system_id_s, :active_s,     
                     :as => :role_search_stats
-                    
+=end              
     belongs_to :last_updated_by, :class_name => 'Authentify::User'
     belongs_to :quality_system, :class_name => 'Commonx::MiscDefinition'
     
