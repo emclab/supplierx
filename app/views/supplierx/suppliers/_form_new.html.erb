@@ -2,6 +2,7 @@
   <%= render inline: @erb_code %>
   
 <% else %>
+<h1><%=I18n.t(@title)%></h1>
 <%= simple_form_for @supplier do |f| %>    
  
   <%= f.input :name, :label => t('Supplier Name:') %>  

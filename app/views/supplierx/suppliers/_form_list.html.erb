@@ -3,7 +3,7 @@
 <% else %>
 
 <div id="main_body">
-<h1><%=t('Suppliers')%></h1>
+<h1><%=I18n.t(@title)%></h1>
 <div class="byop_pagination"><%= will_paginate models %></div>
 <table class="table table-striped">
   <tr>
