@@ -60,12 +60,12 @@ module Supplierx
     
     def new_params
       params.require(:supplier).permit(:active, :address, :cell, :contact_name, :contact_info, :email, :fax, :last_eval_date, :main_product, :name, :phone, :quality_system_name, 
-                     :short_name, :supply_since, :web, :note, :short_comment, :quality_system_id)
+                     :short_name, :supply_since, :web, :note, :short_comment, :quality_system_id, :supplier_cagetory_id)
     end
     
     def edit_params
       params.require(:supplier).permit(:active, :address, :cell, :contact_name, :contact_info, :email, :fax, :last_eval_date, :main_product, :name, :phone, :quality_system_name, 
-                     :short_name, :supply_since, :web, :note, :short_comment, :quality_system_id)
+                     :short_name, :supply_since, :web, :note, :short_comment, :quality_system_id, :supplier_category_id)
     end
   end
 end

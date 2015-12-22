@@ -13,6 +13,3 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
-//= require authentify/application.js
-//= require commonx/application.js
-//= require supplierx/application.js

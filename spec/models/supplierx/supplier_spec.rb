@@ -45,6 +45,12 @@ module Supplierx
       expect(c).to be_valid
     end
     
+    it "should reject 0 supplier_category_id" do
+      c = FactoryGirl.build(:supplierx_supplier, :supplier_category_id => 0)
+      expect(c).not_to be_valid
+    end
+
+    
     it "should reject nil phone" do
       c = FactoryGirl.build(:supplierx_supplier, :phone => nil)
       expect(c).not_to be_valid
