@@ -2,7 +2,7 @@
   <%= render inline: ERB.new(@erb_code).result(binding) %>
   
 <% else %>
-<div id="main_body">
+
 
 <h1><%=t('Supplier Info') %></h1>
 
@@ -78,6 +78,6 @@
    		</th>
 	  </tr>
 	</table> 
-</div>
+
 
 <% end %>
