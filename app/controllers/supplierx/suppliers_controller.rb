@@ -4,25 +4,28 @@ require_dependency "supplierx/application_controller"
 module Supplierx
   class SuppliersController < ApplicationController
     before_action :require_employee
+    helper_method :return_misc_definitions
     
     def index
       @title = t('Suppliers')
       @suppliers = params[:supplierx_suppliers][:model_ar_r].page(params[:page]).per_page(@max_pagination)
-      @erb_code = find_config_const('supplier_index_view', 'supplierx')
+      @erb_code = find_config_const('supplier_index_view', session[:fort_token], 'supplierx')
     end
   
     def new
       @title = t('New Supplier')
       @supplier = Supplierx::Supplier.new()
+      @erb_code = find_config_const('supplier_new_view', session[:fort_token], 'supplierx')
     end
   
     def create
       @supplier = Supplierx::Supplier.new(new_params)
       @supplier.last_updated_by_id = session[:user_id]
       if @supplier.save
-        redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Saved!")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=Successfully Saved!")
       else
         flash[:notice] = t('Data Error. Supplier Not Saved!')
+        @erb_code = find_config_const('supplier_new_view', session[:fort_token], 'supplierx')
         render 'new'
       end
     end
@@ -30,15 +33,17 @@ module Supplierx
     def edit
       @title = t('Update Supplier')
       @supplier = Supplierx::Supplier.find_by_id(params[:id])
+      @erb_code = find_config_const('supplier_edit_view', session[:fort_token], 'supplierx')
     end
   
     def update
       @supplier = Supplierx::Supplier.find_by_id(params[:id])
       @supplier.last_updated_by_id = session[:user_id]
       if @supplier.update_attributes(edit_params)
-        redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Updated!")
+        redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=Successfully Updated!")
       else
         flash[:notice] = t('Data Error. Supplier Not Updated!')
+        @erb_code = find_config_const('supplier_edit_view', session[:fort_token], 'supplierx')
         render 'edit'
       end
     end
@@ -46,7 +51,7 @@ module Supplierx
     def show
       @title = t('Show Supplier')
       @supplier = Supplierx::Supplier.find_by_id(params[:id])
-      @erb_code = find_config_const('supplier_show_view', 'supplierx')
+      @erb_code = find_config_const('supplier_show_view', session[:fort_token], 'supplierx')
     end
     
     def autocomplete

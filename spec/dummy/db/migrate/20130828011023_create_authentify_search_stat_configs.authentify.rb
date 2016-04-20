@@ -13,6 +13,7 @@ class CreateAuthentifySearchStatConfigs < ActiveRecord::Migration
       t.string :brief_note
 
       t.timestamps
+      t.string :fort_token
     end
     
     add_index :authentify_search_stat_configs, :resource_name

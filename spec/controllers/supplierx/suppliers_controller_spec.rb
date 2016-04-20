@@ -21,6 +21,7 @@ module Supplierx
       @qs = FactoryGirl.create(:commonx_misc_definition, :for_which => 'quality_system', :active => true)
       
       session[:user_role_ids] = Authentify::UserPrivilegeHelper::UserPrivilege.new(@u.id).user_role_ids
+      session[:fort_token]= @u.fort_token
     end
     
     render_views
@@ -53,7 +54,7 @@ module Supplierx
         session[:user_id] = @u.id
         sup = FactoryGirl.attributes_for(:supplierx_supplier)
         get 'create', {:supplier => sup}
-        expect(response).to redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Saved!")
+        expect(response).to redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=Successfully Saved!")
       end
       
       it "should render new with data error" do
@@ -86,7 +87,7 @@ module Supplierx
         session[:user_id] = @u.id
         sup = FactoryGirl.create(:supplierx_supplier)
         get 'update', {:id => sup.id, :supplier => {:name => 'a new name'}}
-        expect(response).to redirect_to URI.escape(SUBURI + "/authentify/view_handler?index=0&msg=Successfully Updated!")
+        expect(response).to redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=Successfully Updated!")
       end
       
       it "should render edit with data error" do

@@ -1,4 +1,4 @@
-<% if @view_in_config && @erb_code %>
+<% if  @erb_code %>
   <%= render inline: @erb_code %>
   
 <% else %>
@@ -17,7 +17,7 @@
   <%= f.input :web, :label => t('Web:') %>
   <%= f.input :main_product, :label => t('Main Product：'), :input_html => { :rows => 4} %>   
   <%= f.input :short_comment, :label => t('Short Comment:') %>   
-  <%= f.input :quality_system_id, :collection => Commonx::CommonxHelper.return_misc_definitions('quality_system'), :label => t('Quality System:'),
+  <%= f.input :quality_system_id, :collection => return_misc_definitions('quality_system'), :label => t('Quality System:'),
                                  :label_method => :name, :value_method => :id %>           
   <% if readonly?(@supplier, 'active')%>
      <%= f.input :active_noupdate, :label => t('Active'), :readonly => true, :required => false, :input_html => {:value => @supplier.active} %>
@@ -26,7 +26,7 @@
   <% end %>      
   <%= f.input :note, :label => t('Note:'), :input_html => { :rows => 4} %> 
   
-  <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :class => BUTTONS_CLS['action'] %>
+  <%= link_to t('Back'), SUBURI + "/view_handler?index=0", :class => BUTTONS_CLS['action'] %>
   &nbsp;&nbsp;&nbsp;&nbsp;
   <%= f.button :submit, t('Save') , :class => BUTTONS_CLS['action'] %>  
 <% end %> 

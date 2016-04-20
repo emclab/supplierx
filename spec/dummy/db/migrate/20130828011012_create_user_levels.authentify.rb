@@ -7,6 +7,7 @@ class CreateUserLevels < ActiveRecord::Migration
       t.string  :brief_note
 
       t.timestamps
+      t.string :fort_token
     end
     add_index :authentify_user_levels, :user_id
     add_index :authentify_user_levels, :sys_user_group_id

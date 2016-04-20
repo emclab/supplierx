@@ -9,5 +9,6 @@ FactoryGirl.define do
     search_where "MyText"
     include_stats false
     search_results_period_limit "MyText"
+    fort_token '123456789'
   end
 end

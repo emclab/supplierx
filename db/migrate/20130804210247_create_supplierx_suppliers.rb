@@ -20,12 +20,13 @@ class CreateSupplierxSuppliers < ActiveRecord::Migration
       t.text :note
       t.text :contact_info
       t.integer :supplier_category_id
-   
+      t.string :fort_token
     end
     
     add_index :supplierx_suppliers, :name
     add_index :supplierx_suppliers, :short_name
     add_index :supplierx_suppliers, :supplier_category_id
+    add_index :supplierx_suppliers, :fort_token
     
   end
 end
