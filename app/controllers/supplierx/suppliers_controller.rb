@@ -21,6 +21,7 @@ module Supplierx
     def create
       @supplier = Supplierx::Supplier.new(new_params)
       @supplier.last_updated_by_id = session[:user_id]
+      @supplier.fort_token = session[:fort_token]
       if @supplier.save
         redirect_to URI.escape(SUBURI + "/view_handler?index=0&msg=Successfully Saved!")
       else
