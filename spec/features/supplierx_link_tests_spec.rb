@@ -52,8 +52,11 @@ RSpec.describe "LinkTests", type: :request do
     it "works! (now write some real specs)" do
       sup = FactoryGirl.create(:supplierx_supplier, :quality_system_id => @qs.id)
       visit supplierx.suppliers_path
-      save_and_open_page
+      #save_and_open_page
       expect(page).to have_content('Suppliers')
+      expect(Authentify::SysLog.all.count).to eq(1)
+      expect(Authentify::SysLog.all.first.resource).to eq('supplierx/suppliers')
+      expect(Authentify::SysLog.all.first.user_id).to eq(@u.id)
       
       click_link 'Edit'  #not working
       #visit supplierx.edit_supplier_path(sup)
