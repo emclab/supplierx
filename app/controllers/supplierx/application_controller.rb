@@ -14,6 +14,7 @@ module Supplierx
     after_action :delete_session_variable, :only => [:create, :update]   #for parent_record_id & parent_resource in check_access_right
     before_action :page_params, :only => :index
     
+    helper_method :return_users, :return_misc_definitions
     
     protected
   
